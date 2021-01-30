@@ -1,0 +1,16 @@
+D:\Usuario\Willy\UAGRM\6to Semestre\Prog. Grafica\Proyectos\PGrafica\PGrafica\obj\Debug\PGrafica.csprojAssemblyReference.cache
+D:\Usuario\Willy\UAGRM\6to Semestre\Prog. Grafica\Proyectos\PGrafica\PGrafica\obj\Debug\PGrafica.Properties.Resources.resources
+D:\Usuario\Willy\UAGRM\6to Semestre\Prog. Grafica\Proyectos\PGrafica\PGrafica\obj\Debug\PGrafica.csproj.GenerateResource.cache
+D:\Usuario\Willy\UAGRM\6to Semestre\Prog. Grafica\Proyectos\PGrafica\PGrafica\bin\Debug\PGrafica.exe.config
+D:\Usuario\Willy\UAGRM\6to Semestre\Prog. Grafica\Proyectos\PGrafica\PGrafica\bin\Debug\PGrafica.exe
+D:\Usuario\Willy\UAGRM\6to Semestre\Prog. Grafica\Proyectos\PGrafica\PGrafica\bin\Debug\PGrafica.pdb
+D:\Usuario\Willy\UAGRM\6to Semestre\Prog. Grafica\Proyectos\PGrafica\PGrafica\bin\Debug\OpenTK.dll
+D:\Usuario\Willy\UAGRM\6to Semestre\Prog. Grafica\Proyectos\PGrafica\PGrafica\bin\Debug\OpenTK.GLControl.dll
+D:\Usuario\Willy\UAGRM\6to Semestre\Prog. Grafica\Proyectos\PGrafica\PGrafica\bin\Debug\OpenTK.pdb
+D:\Usuario\Willy\UAGRM\6to Semestre\Prog. Grafica\Proyectos\PGrafica\PGrafica\bin\Debug\OpenTK.xml
+D:\Usuario\Willy\UAGRM\6to Semestre\Prog. Grafica\Proyectos\PGrafica\PGrafica\bin\Debug\OpenTK.GLControl.pdb
+D:\Usuario\Willy\UAGRM\6to Semestre\Prog. Grafica\Proyectos\PGrafica\PGrafica\bin\Debug\OpenTK.GLControl.xml
+D:\Usuario\Willy\UAGRM\6to Semestre\Prog. Grafica\Proyectos\PGrafica\PGrafica\obj\Debug\PGrafica.csproj.CopyComplete
+D:\Usuario\Willy\UAGRM\6to Semestre\Prog. Grafica\Proyectos\PGrafica\PGrafica\obj\Debug\PGrafica.exe
+D:\Usuario\Willy\UAGRM\6to Semestre\Prog. Grafica\Proyectos\PGrafica\PGrafica\obj\Debug\PGrafica.pdb
+D:\Usuario\Willy\UAGRM\6to Semestre\Prog. Grafica\Proyectos\PGrafica\PGrafica\obj\Debug\PGrafica.Form1.resources
