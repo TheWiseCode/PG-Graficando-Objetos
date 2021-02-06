@@ -44,9 +44,6 @@ namespace PGrafica
             bottom = -v;
             zNear = w;
             zFar = -w;
-            this.textRot.Text = camara.AngX.ToString() + "," + camara.AngY.ToString() + "," + camara.AngZ.ToString();
-            this.textTras.Text = camara.TlsX.ToString() + "," + camara.TlsY.ToString() + "," + camara.TlsZ.ToString();
-            this.textScala.Text = camara.Scale.ToString();
         }
 
         public void AddObjetos()
@@ -135,15 +132,12 @@ namespace PGrafica
         {
             camara.MouseMove(e);
             gLControl.Invalidate();
-            this.textRot.Text = camara.AngX.ToString() + "," + camara.AngY.ToString() + "," + camara.AngZ.ToString();
-            this.textTras.Text = camara.TlsX.ToString() + "," + camara.TlsY.ToString() + "," + camara.TlsZ.ToString();
         }
 
         private void gLControl_MouseWheel(object sender, MouseEventArgs e)
         {
             camara.MouseWheel(e);
             gLControl.Invalidate();
-            this.textScala.Text = camara.Scale.ToString();
         }
         #endregion
 

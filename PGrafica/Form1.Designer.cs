@@ -34,9 +34,6 @@ namespace PGrafica
             this.gLControl = new OpenTK.GLControl();
             this.comboOperar = new System.Windows.Forms.ComboBox();
             this.btnRestart = new System.Windows.Forms.Button();
-            this.textScala = new System.Windows.Forms.TextBox();
-            this.textRot = new System.Windows.Forms.TextBox();
-            this.textTras = new System.Windows.Forms.TextBox();
             this.trackAngX = new System.Windows.Forms.TrackBar();
             this.trackAngZ = new System.Windows.Forms.TrackBar();
             this.label3 = new System.Windows.Forms.Label();
@@ -133,27 +130,6 @@ namespace PGrafica
             this.btnRestart.Text = "Estado Inicial";
             this.btnRestart.UseVisualStyleBackColor = true;
             this.btnRestart.Click += new System.EventHandler(this.btnRestart_Click);
-            // 
-            // textScala
-            // 
-            this.textScala.Location = new System.Drawing.Point(197, 12);
-            this.textScala.Name = "textScala";
-            this.textScala.Size = new System.Drawing.Size(161, 20);
-            this.textScala.TabIndex = 3;
-            // 
-            // textRot
-            // 
-            this.textRot.Location = new System.Drawing.Point(197, 38);
-            this.textRot.Name = "textRot";
-            this.textRot.Size = new System.Drawing.Size(161, 20);
-            this.textRot.TabIndex = 4;
-            // 
-            // textTras
-            // 
-            this.textTras.Location = new System.Drawing.Point(197, 64);
-            this.textTras.Name = "textTras";
-            this.textTras.Size = new System.Drawing.Size(161, 20);
-            this.textTras.TabIndex = 5;
             // 
             // trackAngX
             // 
@@ -625,9 +601,6 @@ namespace PGrafica
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.comboAgregar);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.textTras);
-            this.Controls.Add(this.textRot);
-            this.Controls.Add(this.textScala);
             this.Controls.Add(this.btnRestart);
             this.Controls.Add(this.comboOperar);
             this.Controls.Add(this.gLControl);
@@ -660,9 +633,6 @@ namespace PGrafica
 
         private System.Windows.Forms.ComboBox comboOperar;
         private System.Windows.Forms.Button btnRestart;
-        private System.Windows.Forms.TextBox textScala;
-        private System.Windows.Forms.TextBox textRot;
-        private System.Windows.Forms.TextBox textTras;
         private System.Windows.Forms.TrackBar trackAngX;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
