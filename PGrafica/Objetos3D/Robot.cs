@@ -52,6 +52,7 @@ namespace PGrafica
         }
         #endregion
 
+        #region Metodos Calculo
         private void Init()
         {
             partes = new Hashtable();
@@ -121,7 +122,9 @@ namespace PGrafica
             Tronco tron = new Tronco(dimBody, AngOrg.Z, angBody, colors[1]);
             partes.Add("tronco", tron);
         }
+        #endregion
 
+        #region Metodos OpenGL
         public override void Draw()
         {
             for (int i = 0; i < nomPartes.Length; i++)
@@ -159,5 +162,14 @@ namespace PGrafica
             GL.PopMatrix();
         }
 
+        public override void Restart()
+        {
+            base.Restart();
+            ((Extremidad)partes["brazoI"]).Restart();
+            ((Extremidad)partes["piernaI"]).Restart();
+            ((Extremidad)partes["brazoD"]).Restart();
+            ((Extremidad)partes["piernaD"]).Restart();
+        }
+        #endregion
     }
 }

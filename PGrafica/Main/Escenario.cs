@@ -14,6 +14,7 @@ namespace PGrafica
         private Punto SentTras;
         #endregion
 
+        #region Constructores y Gestion de Objetos
         public Escenario()
         {
             Init();
@@ -50,7 +51,9 @@ namespace PGrafica
                 nombres.Remove(clave);
             }
         }
-        
+        #endregion
+
+        //#region 
         public void DoOperations(string objeto, Camara camara)
         {
             float aX = camara.AngX, aY = camara.AngY, aZ = camara.AngZ;
@@ -89,11 +92,6 @@ namespace PGrafica
         {
             if (objeto == "Escenario")
             {
-                /*
-                GL.Rotate(auAngX, 1, 0, 0);
-                GL.Rotate(auAngY, 0, 0, 1);
-                GL.Rotate(auAngZ, 0, 1, 0);
-                return;*/
                 Ang.X += auAngX;
                 Ang.Y += auAngY;
                 Ang.Z += auAngZ;
@@ -101,7 +99,7 @@ namespace PGrafica
             else if (objects.Contains(objeto))
             {
                 IFigura3D fig = (IFigura3D)(objects[objeto]);
-                fig.Rotar(auAngX, auAngY, auAngZ);
+                fig.RotarOrigen(auAngX, auAngY, auAngZ);
             }
         }
         
@@ -113,7 +111,14 @@ namespace PGrafica
             for (int i = 0; i < nombres.Count; i++)
             {
                 IFigura3D fig = (IFigura3D)(objects[nombres[i]]);
-                fig.Restart();
+                if (fig is Robot)
+                {
+                    ((Robot)fig).Restart();
+                }
+                else
+                {
+                    fig.Restart();
+                }
             }
         }
 
@@ -135,7 +140,6 @@ namespace PGrafica
                     Esc.Z += auEscZ;
                 else if (Esc.Z > 0.25f)
                     Esc.Z += auEscZ;
-                //GL.Scale(Esc.X, Esc.Y, Esc.Z);
             }
             else if (objects.Contains(objeto))
             {
@@ -148,8 +152,6 @@ namespace PGrafica
         {
             if (objeto == "Escenario")
             {
-                /*GL.Translate(auX, auZ, auY);
-                return;*/
                 Tras.X += auX;
                 Tras.Y += auY;
                 Tras.Z += auZ;
@@ -247,17 +249,14 @@ namespace PGrafica
             }
         }
 
-        public void hilo()
-        {
-            if (objects.ContainsKey("Robot"))
-            {
-                
-            }
-        }
-
         public bool ClaveValida(string claveObjeto)
         {
             return !objects.ContainsKey(claveObjeto);
+        }
+
+        public bool ContainsObject(string claveObjeto)
+        {
+            return objects.ContainsKey(claveObjeto);
         }
     }
 }

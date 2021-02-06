@@ -1,9 +1,10 @@
 ﻿
 using Microsoft.VisualBasic;
+using Newtonsoft.Json;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Drawing;
-using System.Threading;
+using System.IO;
 using System.Windows.Forms;
 
 namespace PGrafica
@@ -15,6 +16,7 @@ namespace PGrafica
         private Camara camara;
         private Color color;
         private double left, right, bottom, top, zNear, zFar;
+        private ListAnimacion animaciones;
         #endregion
 
         #region Constructores
@@ -22,10 +24,12 @@ namespace PGrafica
         {
             InitializeComponent();
             escenario = new Escenario();
+            animaciones = new ListAnimacion(escenario, gLControl);
             camara = new Camara();
             color = Color.DarkCyan;
             btnFondo.BackColor = color;
             comboOperar.SelectedIndex = 0;
+            cBoxAnimacion.SelectedIndex = 0;
             comboAgregar.SelectedIndex = 0;
             Init();
         }
@@ -49,7 +53,7 @@ namespace PGrafica
         {
             try
             {
-                float l = 1f, a = 1.6f, h = 0.8f, g = 0.1f, r = 0.05f;
+                float l = 1f, a = 1.6f, h = 0.8f, g = 0.1f;
                 float xm = 0.3f, ym = 0.3f, zm = 0;
                 float xc = xm + a / 2, yc = ym + l / 2, zc = h;
                 Mesa mes = new Mesa(new Punto(xc, yc, zc), new Dim(l, a, h), g, Color.SaddleBrown);
@@ -70,7 +74,7 @@ namespace PGrafica
                 float sepR = 0.01f;
                 float gExt = 0.1f, hPier = 0.3f, lBra = 0.25f;
                 float lBd = 0.2f, aBd = 0.4f, hBd = 0.6f;
-                float lHd = 0.3f, aHd = 0.3f, hHd = 0.3f;
+                float lHd = 0.3f;
                 float xr = xc, yr = yc, zr = zc + (2 * sepR) + (2 * hPier) + (hBd / 2);
                 Robot robo = new Robot(new Punto(xr, yr, zr), new Dim(lBd, aBd, hBd), new Dim(lHd), hPier, lBra, gExt,
                     Color.DarkGoldenrod, Color.DarkGray);
@@ -111,12 +115,6 @@ namespace PGrafica
             gLControl.MakeCurrent();
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             string objeto = comboOperar.SelectedItem.ToString();
-            if (richTextBox1 != null && escenario.objects.ContainsKey("Robot"))
-            {
-                Robot rb = (Robot)escenario.objects["Robot"];
-                richTextBox1.Text = "Pierna Izq: " + rb.angFlexPI[0] + "," + rb.angFlexPI[1] + "\n" +
-                "Pierna Der: " + rb.angFlexPD[0] + "," + rb.angFlexPD[1] + "\n";
-            }
             escenario.Traslaciones(objeto);
             escenario.DoOperations(objeto, camara);
             //escenario.DoOperations();
@@ -303,17 +301,11 @@ namespace PGrafica
             try
             {
                 if (objeto == "Mesa")
-                {
                     AddMesa(clave);
-                }
                 else if (objeto == "Silla")
-                {
                     AddSilla(clave);
-                }
                 else if (objeto == "Robot")
-                {
                     AddRobot(clave);
-                }
                 comboOperar.Items.Add(clave);
                 comboEliminar.Items.Add(clave);
                 gLControl.Invalidate();
@@ -344,22 +336,92 @@ namespace PGrafica
             comboEliminar.SelectedIndex = 0;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnRunAnimacion_Click(object sender, EventArgs e)
         {
-            Robot rb = (Robot)escenario.objects["Robot"];
-            RobotAnimations le1 = new RobotAnimations(gLControl, rb, true, 60, 3 * 1000);
-            RobotAnimations le2 = new RobotAnimations(gLControl, rb, false, -90, 3 * 1000);
-            RobotAnimations le3 = new RobotAnimations(gLControl, rb, false, -40, 3 * 1000);
-            RobotAnimations le4 = new RobotAnimations(gLControl, rb, 0.5f, (long)(1.5 * 1000));
-            Thread h1 = new Thread(le1.LevaRodilla);
-            Thread h2 = new Thread(le2.LevaBrazoComp);
-            Thread h3 = new Thread(le3.LevaRodilla);
-            Thread h4 = new Thread(le4.Caminar);
-            //Thread h2 = new Thread(le2.LevantarBrazo);
-            //h1.Start();
-            //h2.Start();
-            //h3.Start();
-            h4.Start();
+            animaciones.Run();
+        }
+
+        private int tipoAnimacion(string anim)
+        {
+            anim = anim.ToUpper();
+            int tipo = anim == "MOVER CIERTA DISTANCIA" ? 3 :
+                    (anim == "TRASLADAR AL PUNTO" ? 4 :
+                    (anim == "ROTAR OBJETO" ? 1 :
+                    (anim == "ROTAR ORIGEN" ? 2 :
+                    (anim == "ESCALAR CIERTA CANTIDAD" ? 5 :
+                    (anim == "ESCALAR HASTA" ? 6 : 0)))));
+            return tipo;
+            //public const int ROTAR_OBJ = 1;
+            //public const int ROTAR_ORG = 2;
+            //public const int MOVER = 3;
+            //public const int TRASLADAR = 4;
+            //public const int ESCALAR = 5;
+            //public const int ESCALATE = 6;
+        }
+
+        private void btnAddAnimacion(object sender, EventArgs e)
+        {
+            string objeto = comboOperar.SelectedItem.ToString();
+            if (escenario.ContainsObject(objeto))
+            {
+                try
+                {
+                    string anim = cBoxAnimacion.SelectedItem.ToString();
+                    int tipo = tipoAnimacion(anim);
+                    float x = float.Parse(Interaction.InputBox("X:", "Valor x de la animacion", "1", 100, 100));
+                    float y = float.Parse(Interaction.InputBox("Y:", "Valor y de la animacion", "1", 100, 100));
+                    float z = float.Parse(Interaction.InputBox("Z:", "Valor z de la animacion", "1", 100, 100));
+                    float t = float.Parse(Interaction.InputBox("Duracion en segundos, puede ser punto flotante"
+                            , "Duracion de la animacion", "3", 100, 100));
+                    long time = (long)(t * 1000);
+                    Animacion newAnim = new Animacion(objeto, tipo, x, y, z, time);
+                    animaciones.Add(newAnim);
+                    richTextBox1.Text += "Add:" + objeto + ", " + anim + "(" + x + "," + y + "," + z + "), Tiempo(ms): " + time + "\n";
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+        }
+
+
+        private void btnClearAnimaciones_Click(object sender, EventArgs e)
+        {
+            animaciones.Clear();
+            richTextBox1.Text = "";
+        }
+
+        private void btnDelAnimacion_Click(object sender, EventArgs e)
+        {
+            int i = int.Parse(Interaction.InputBox("Indice >= 0: ", "Eliminar animacion segun indice", "0", 100, 100));
+            if (i >= 0 && i < animaciones.Count) {
+                animaciones.RemoveAt(i);
+                richTextBox1.Text += "Eliminada animacion indice " + i;
+            }
+        }
+
+        private void btnLoadJson_Click(object sender, EventArgs e)
+        {
+            string path = app.Default.rutaAnimaciones;
+            string animacionesFromJson;
+            using (var reader = new StreamReader(path))
+            {
+                animacionesFromJson = reader.ReadToEnd();
+            }
+            try
+            {
+                Animacion[] anims = JsonConvert.DeserializeObject<Animacion[]>(animacionesFromJson);
+                animaciones.Clear();
+                for (int i = 0; i < anims.Length; i++)
+                {
+                    animaciones.Add(anims[i]);
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error al parsear archivo Json");
+            }
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
@@ -381,7 +443,7 @@ namespace PGrafica
 
         private void btnRestart_Click(object sender, EventArgs e)
         {
-            //            GL.LoadIdentity();
+            //GL.LoadIdentity();
             escenario.Restart();
             gLControl.Invalidate();
         }

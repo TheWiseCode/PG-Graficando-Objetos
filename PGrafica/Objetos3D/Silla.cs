@@ -32,6 +32,7 @@ namespace PGrafica
         }
         #endregion
 
+        #region Metodos Calculo
         private void Init()
         {
             puntosBase = new List<Punto>();
@@ -101,7 +102,9 @@ namespace PGrafica
                 puntosBase.Add(new Punto(a2 * m[i, 0], l2 * m[i, 1], hd));
             }
         }
+        #endregion
 
+        #region Metodos OpenGL
         public override void Draw()
         {
             DrawBase();
@@ -127,7 +130,7 @@ namespace PGrafica
             Primitivas.DrawCuboide(puntosEspaldar, color);
         }
 
-        public override void Rotar(float auAngX, float auAngY, float auAngZ)
+        public override void RotarOrigen(float auAngX, float auAngY, float auAngZ)
         {
             AngOrg.X += auAngX;
             AngOrg.Y += auAngY;
@@ -176,6 +179,7 @@ namespace PGrafica
             GL.PopMatrix();
             GL.PopMatrix();
         }
+        #endregion
 
     }
 }

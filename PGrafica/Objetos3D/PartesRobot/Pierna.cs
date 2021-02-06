@@ -17,8 +17,8 @@ namespace PGrafica.Objetos3D
             int lado, Color[] colors) :
             base(dx, grosor, altura, angRot, angFlexs, lado, colors)
         {
-            angFlexInf = new float[] { 0, -135 };
-            angFlexSup = new float[] { 90, -30 };
+            //angFlexInf = new float[] { 0, -135 };
+            //angFlexSup = new float[] { 90, -30 };
         }
 
     }

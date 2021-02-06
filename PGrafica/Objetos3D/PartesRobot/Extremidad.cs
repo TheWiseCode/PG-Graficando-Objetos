@@ -6,6 +6,7 @@ namespace PGrafica.Objetos3D
 {
     abstract class Extremidad : IFigura3D
     {
+        #region Atributos
         protected float gr, h, dx;
         protected List<Punto> puntos;
         protected Color colorPiel, colorRopa;
@@ -13,9 +14,6 @@ namespace PGrafica.Objetos3D
         protected int lado;
         protected float[] angFlexInf;
         protected float[] angFlexSup;
-        protected float angGirExt, angGirInt;
-
-        private static float sep = 0.01f;
 
         public float AngFlexSup { get; set; }
         public float AngFlexInf { get; set; }
@@ -23,7 +21,9 @@ namespace PGrafica.Objetos3D
 
         public static int IZQUIERDO = 1;
         public static int DERECHO = 2;
+        #endregion
 
+        #region Constructores
         public Extremidad() : this(0.3f, 0.2f, 0.6f, 90f, new float[] { 0, 90 }, 1,
             new Color[] { Color.Black, Color.Gray })
         {
@@ -45,7 +45,9 @@ namespace PGrafica.Objetos3D
             AngFlexInf = angFlexs[1];
             Init();
         }
+        #endregion
 
+        #region Metodos Calculo
         protected void Init()
         {
             puntos = new List<Punto>();
@@ -73,7 +75,9 @@ namespace PGrafica.Objetos3D
                 puntos.Add(new Punto(a2 * m[i, 0] + dx, l2 * m[i, 1] + dy, hd));
             }
         }
+        #endregion
 
+        #region Metodos OpenGL
         public override void Draw()
         {
             //Ahora Extremidad Superior
@@ -104,14 +108,11 @@ namespace PGrafica.Objetos3D
             GL.PopMatrix();
         }
 
-        public void Girar(float angAumento)
+        public override void Restart()
         {
-            //ActualizarPuntos();
+            base.Restart();
+            AngFlexSup = AngFlexInf = 0;
         }
-
-        public void Flexiona(float angAumento)
-        {
-
-        }
+        #endregion
     }
 }

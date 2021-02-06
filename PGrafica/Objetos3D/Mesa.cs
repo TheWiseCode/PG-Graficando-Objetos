@@ -30,6 +30,7 @@ namespace PGrafica
         }
         #endregion
 
+        #region Metodos Calculo
         private void Init()
         {
             puntosBase = new List<Punto>();
@@ -79,7 +80,9 @@ namespace PGrafica
                 }
             }
         }
+        #endregion
 
+        #region Metodos OpenGL
         public override void Draw()
         {
             DrawBase();
@@ -136,5 +139,6 @@ namespace PGrafica
                 Esc.Z += auEscZ;
             // GL.Scale(escX, escY, escZ);
         }
+        #endregion
     }
 }

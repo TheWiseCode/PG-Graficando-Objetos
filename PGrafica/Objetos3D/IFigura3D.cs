@@ -27,11 +27,17 @@
         }
 
         public abstract void Draw();
-        public virtual void Rotar(float auAngX, float auAngY, float auAngZ)
+        public virtual void RotarOrigen(float auAngX, float auAngY, float auAngZ)
         {
             AngOrg.X += auAngX;
             AngOrg.Y += auAngY;
             AngOrg.Z += auAngZ;
+        }
+        public virtual void RotarObjeto(float auAngX, float auAngY, float auAngZ)
+        {
+            AngObj.X += auAngX;
+            AngObj.Y += auAngY;
+            AngObj.Z += auAngZ;
         }
         public virtual void Escalar(float auEscX, float auEscY, float auEscZ)
         {
@@ -73,9 +79,10 @@
         }
 
         public abstract void DoOperations();
-        public void Restart()
+        public virtual void Restart()
         {
             AngOrg.X = AngOrg.Y = AngOrg.Z = 0;
+            AngObj.X = AngObj.Y = AngObj.Z = 0;
             Origen.X = Origen.Y = Origen.Z = 0;
             Esc.X = Esc.Y = Esc.Z = 1;
         }
