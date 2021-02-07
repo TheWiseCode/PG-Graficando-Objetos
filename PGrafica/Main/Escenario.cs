@@ -258,5 +258,7 @@ namespace PGrafica
         {
             return objects.ContainsKey(claveObjeto);
         }
+
+
     }
 }

@@ -1,6 +1,5 @@
 ﻿using OpenTK;
 using System;
-using System.Threading;
 
 namespace PGrafica
 {
@@ -19,15 +18,15 @@ namespace PGrafica
         public string Objeto;
         public int TipoAnimacion;
         public float X, Y, Z;
-        public long Time { get; set; }
+        public long Time;
         #endregion
 
         public Animacion(string objeto, int tipo, float x, float y, float z, long time)
         {
             Time = time;
-            this.X = x;
-            this.Y = y;
-            this.Z = z;
+            X = x;
+            Y = y;
+            Z = z;
             Objeto = objeto;
             if (tipo >= 1 && tipo <= 6) {
                 TipoAnimacion = tipo;
@@ -50,7 +49,7 @@ namespace PGrafica
 
         public void Animation()
         {
-            if (figura != null)
+            if (figura != null && glControl != null)
             {
                 switch (TipoAnimacion)
                 {

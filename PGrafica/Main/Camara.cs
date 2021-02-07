@@ -7,7 +7,6 @@ namespace PGrafica
     class Camara
     {
         private int rotaX, rotaZ;
-        private int transX, transZ;
         private float oldX, oldY;
 
         public float AngX { get; set; }
@@ -21,7 +20,6 @@ namespace PGrafica
         public Camara()
         {
             rotaX = rotaZ = 0;
-            transX = transZ = 0;
             AngX = AngY = AngZ = 0;
             TlsX = TlsY = TlsZ = 0;
             oldX = oldY = 0;
@@ -34,7 +32,6 @@ namespace PGrafica
             {
                 oldX = e.X;
                 oldY = e.Y;
-                //MessageBox.Show("Click Left " + e.X + "," + e.Y);
             }
         }
 
@@ -48,14 +45,7 @@ namespace PGrafica
             {
                 AngX = AngY = AngZ = 0;
             }
-            if (e.Button == MouseButtons.Right)
-            {
-                //TrasladarCamara(e);
-            }
-            else
-            {
-                TlsX = TlsY = TlsZ = 0;
-            }
+            TlsX = TlsY = TlsZ = 0;
         }
 
         public void MouseWheel(MouseEventArgs e)
@@ -91,31 +81,6 @@ namespace PGrafica
                 AngX = 0;
                 AngZ = rotaZ * 1.5f;
             }
-        }
-
-        private void TrasladarCamara(MouseEventArgs e)
-        {
-            float MovedX = e.X - oldX;
-            float MovedZ = e.Y - oldY;
-            if (MovedX == 0 && MovedZ != 0)
-            {
-                transZ = MovedZ > 0 ? -1 : 1;
-                transX = 0;
-            }
-            else if (MovedZ == 0 && MovedX != 0)
-            {
-                transX = MovedX > 0 ? 1 : -1;
-                transZ = 0;
-            }
-            else
-            {
-                transX = transZ = 0;
-            }
-            oldX = e.X;
-            oldY = e.Y;
-            float au = 0.1f;
-            TlsX = transX > 0 ? au : (transX < 0 ? -au : 0);
-            TlsZ = transZ > 0 ? au : (transZ < 0 ? -au : 0);
         }
     }
 }

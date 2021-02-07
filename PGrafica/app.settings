@@ -1,9 +1,12 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PGrafica" GeneratedClassName="Settings1">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PGrafica" GeneratedClassName="app">
   <Profiles />
   <Settings>
     <Setting Name="rutaAnimaciones" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">D:\Usuario\Willy\UAGRM\6to Semestre\Prog. Grafica\Proyectos\PGrafica\PGrafica\Recursos\Anims.json</Value>
+      <Value Profile="(Default)">D:\Usuario\Willy\UAGRM\6to Semestre\Prog. Grafica\Proyectos\PGrafica\PGrafica\Recursos\Animaciones.json</Value>
+    </Setting>
+    <Setting Name="ruta" Type="System.String" Scope="User">
+      <Value Profile="(Default)">\Recursos\Animaciones.json</Value>
     </Setting>
   </Settings>
 </SettingsFile>

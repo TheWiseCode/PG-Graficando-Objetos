@@ -386,18 +386,14 @@ namespace PGrafica
             richTextBox1.Text = "";
         }
 
-        private void btnDelAnimacion_Click(object sender, EventArgs e)
-        {
-            int i = int.Parse(Interaction.InputBox("Indice >= 0: ", "Eliminar animacion segun indice", "0", 100, 100));
-            if (i >= 0 && i < animaciones.Count) {
-                animaciones.RemoveAt(i);
-                richTextBox1.Text += "Eliminada animacion indice " + i;
-            }
-        }
-
         private void btnLoadJson_Click(object sender, EventArgs e)
         {
-            string path = app.Default.rutaAnimaciones;
+            string p = Application.StartupPath;
+            int ini = p.IndexOf("\\bin");
+            int cant = p.Length - ini;
+            p = p.Remove(ini, cant);
+            string path = p + app.Default.ruta;
+            richTextBox1.Text += path;
             string animacionesFromJson;
             using (var reader = new StreamReader(path))
             {
@@ -437,7 +433,6 @@ namespace PGrafica
 
         private void btnRestart_Click(object sender, EventArgs e)
         {
-            //GL.LoadIdentity();
             escenario.Restart();
             gLControl.Invalidate();
         }

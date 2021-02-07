@@ -26,10 +26,22 @@ namespace PGrafica {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("D:\\Usuario\\Willy\\UAGRM\\6to Semestre\\Prog. Grafica\\Proyectos\\PGrafica\\PGrafica\\Rec" +
-            "ursos\\Anims.json")]
+            "ursos\\Animaciones.json")]
         public string rutaAnimaciones {
             get {
                 return ((string)(this["rutaAnimaciones"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\Recursos\\Animaciones.json")]
+        public string ruta {
+            get {
+                return ((string)(this["ruta"]));
+            }
+            set {
+                this["ruta"] = value;
             }
         }
     }
